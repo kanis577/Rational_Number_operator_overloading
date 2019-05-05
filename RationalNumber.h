@@ -17,15 +17,32 @@ class RationalNumber
     RationalNumber operator /(RationalNumber &);
     friend bool operator>(const RationalNumber &r1,const RationalNumber &r2)
     {
-        if((r1.numerator_/r1.denominator_)>(r2.numerator_/r2.denominator_))
+         if(r1.denominator_==r2.denominator_)
         {
-            return true;
+            if(r1.numerator_>r2.numerator_)return true;
+            else return false;
         }
-        else return false;
+        else
+        {
+            RationalNumber r3;
+            RationalNumber r4;
+
+
+
+            r3.denominator_=r1.denominator_*r2.denominator_;
+            r4.denominator_=r2.denominator_*r1.denominator_;
+
+            r3.numerator_=r1.numerator_*r2.denominator_;
+            r4.numerator_=r2.numerator_*r1.denominator_;
+
+            if(r3.numerator_>r4.numerator_)return true;
+            else return false;
+
+        }
     }
     friend bool operator==(const RationalNumber &r1,const RationalNumber &r2)
     {
-        if((r1.numerator_/r1.denominator_)==(r2.numerator_/r2.denominator_))
+         if((r1.numerator_==r2.numerator_&&r1.denominator_==r2.denominator_))
         {
             return true;
         }
@@ -33,11 +50,27 @@ class RationalNumber
     }
     friend bool operator >=(const RationalNumber &r1,const RationalNumber &r2)
     {
-        if((r1.numerator_/r1.denominator_)>=(r2.numerator_/r2.denominator_))
+        if(r1.denominator_==r2.denominator_)
         {
-            return true;
+            if(r1.numerator_>=r2.numerator_)return true;
+            else return false;
         }
-        else return false;
+        else
+        {
+            RationalNumber r3;
+            RationalNumber r4;
+
+
+            r3.denominator_=r1.denominator_*r2.denominator_;
+            r4.denominator_=r2.denominator_*r1.denominator_;
+
+            r3.numerator_=r1.numerator_*r2.denominator_;
+            r4.numerator_=r2.numerator_*r1.denominator_;
+
+            if(r3.numerator_>=r4.numerator_)return true;
+            else return false;
+
+    }
     }
         private:
         int numerator_,denominator_;
@@ -97,8 +130,8 @@ RationalNumber RationalNumber::operator+(RationalNumber &r1)
     }
     else
     {
+        r3.numerator_=(this->numerator_*r1.denominator_)+(this->denominator_*r1.numerator_);
         r3.denominator_=this->denominator_*r1.denominator_;
-        r3.numerator_=this->numerator_*r1.denominator_+r1.numerator_;
     }
     return r3;
 }
@@ -139,4 +172,3 @@ void RationalNumber::printRational()
         else cout<<numerator_<<"/"<<denominator_;
 }
 #endif
-
